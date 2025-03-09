@@ -39,8 +39,8 @@
 
 #waifu-tips {
 	animation: shake 50s ease-in-out 5s infinite;
-	background-color: rgba(236, 217, 188, .5);
-	border: 1px solid rgba(224, 186, 140, .62);
+	background-color: rgba(188, 223, 236, 0.586);
+	border: 1px solid rgba(125, 175, 193, 0.601);
 	border-radius: 12px;
 	box-shadow: 0 3px 15px 2px rgba(191, 158, 118, .2);
 	font-size: 14px;
@@ -53,7 +53,7 @@
 	position: absolute;
 	text-overflow: ellipsis;
 	transition: opacity 1s;
-	width: 250px;
+	width: 200px;
 	word-break: break-all;
 }
 
@@ -70,7 +70,7 @@
 	cursor: grab;
 	height: 400px;
 	position: relative;
-	width: 300px;
+	width: 200px;
 }
 
 #live2d:active {

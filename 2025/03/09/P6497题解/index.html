@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>categories | Tjaweiof&#39;s Blog</title>
+    <title>P6497题解 | Tjaweiof&#39;s Blog</title>
     <meta name="author" content="Tjaweiof" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -42,6 +42,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -155,14 +159,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>P6497题解</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/3/9
+        </span>
         
-        
-        
-        <span>
-            <a href="/categories/%E9%A2%98%E8%A7%A3/" style="background: #00a596">
+        <span class="category">
+            <a href="/categories/%E9%A2%98%E8%A7%A3/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -171,7 +181,145 @@
         </span>
         
         
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #00bcd4">
+                    洛谷
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #03a9f4">
+                    题解
+                </a>
+            </span>
+            
+        </span>
+        
     </div>
+    
+    <div class="content" v-pre>
+        <h3 id="一道找规律的题"><a href="#一道找规律的题" class="headerlink" title="一道找规律的题"></a><del>一道找规律的题</del></h3><p>这道题需要分类讨论：</p>
+<ol>
+<li>奇数</li>
+<li>偶数</li>
+</ol>
+<span id="more"></span>
+
+<p>我们知道，一个长度为奇数的等差数列，平均值是中间那个数。这样，我们就能用这样的规律，让每行每列都变成一个等差数列。</p>
+<p>不难发现，我们只需要把 $1\sim n^2$ 所有数列出来，就可以得到满足要求的矩阵。如：</p>
+<pre><code>1 2 3 4 5
+6 7 8 9 10
+11 12 13 14 15
+16 17 18 19 20
+21 22 23 24 25
+</code></pre>
+<p>那么奇数的代码就可以写成：</p>
+<pre><code class="cpp">void jishu()&#123;
+    for (int i = 1; i &lt;= n * n; i++)&#123;
+        printf(&quot;%d &quot;, i);
+        if (i % n == 0)&#123;
+            printf(&quot;\n&quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>偶数就不一样了，因为一个长度为偶数的等差数列，平均值是小数，不满足题目要求，需要让平均值变为整数。</p>
+<p>我们举个简单的例子， $n&#x3D;4$ 时</p>
+<p>第一行 <code>1 2 3 4</code> 是不行的，为了方便，我们只改动最后一个数：</p>
+<p>当 <code>1 2 3 6</code> 时平均值为 $3$，满足。</p>
+<p>到第二行时，如果从 $4$ 开始，按原来的规律，是 <code>4 5 6 9</code>，但是我们发现 $6$ 在这里重复了，题目要求<strong>互不相等</strong>，所以我们可以改成 <code>7 8 9 12</code>。</p>
+<p>第三行也是一样，<code>13 14 15 18</code>。</p>
+<p>第四行如果还用 <code>19 20 21 24</code> 的话，列的要求就不满足了，所以我们再用处理第一行的方法，改成 <code>31 32 33 36</code>。</p>
+<p>最后得到</p>
+<pre><code>1 2 3 6
+7 8 9 12
+13 14 15 18
+31 32 33 36
+</code></pre>
+<p>$n&#x3D;6$ 时也是一样</p>
+<pre><code>1 2 3 4 5 9
+10 11 12 13 14 18
+19 20 21 22 23 27
+28 29 30 31 32 36
+37 38 39 40 41 45
+73 74 75 76 77 81
+</code></pre>
+<p>然后我们写出偶数的代码：</p>
+<pre><code class="cpp">void oushu()&#123;
+    int cnt = 0;
+    for (int i = 1; i &lt;= n; i++)&#123;
+        for (int j = 1; j &lt;= n; j++)&#123;
+            cnt++;
+            if (j == n)&#123;
+                cnt += n / 2;
+                printf(&quot;%d\n&quot;, cnt);
+            &#125; else if (i == n &amp;&amp; j == 1)&#123;
+                cnt += n * n / 4 * 3;
+                printf(&quot;%d &quot;, cnt);
+            &#125; else &#123;
+                printf(&quot;%d &quot;, cnt);
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>但是，，我们发现了 $2$，当 $n&#x3D;2$ 时，输出 $-1$。</p>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int n;
+void jishu()&#123;
+    for (int i = 1; i &lt;= n * n; i++)&#123;
+        printf(&quot;%d &quot;, i);
+        if (i % n == 0)&#123;
+            printf(&quot;\n&quot;);
+        &#125;
+    &#125;
+&#125;
+void oushu()&#123;
+    int cnt = 0;
+    for (int i = 1; i &lt;= n; i++)&#123;
+        for (int j = 1; j &lt;= n; j++)&#123;
+            cnt++;
+            if (j == n)&#123;
+                cnt += n / 2;
+                printf(&quot;%d\n&quot;, cnt);
+            &#125; else if (i == n &amp;&amp; j == 1)&#123;
+                cnt += n * n / 4 * 3;
+                printf(&quot;%d &quot;, cnt);
+            &#125; else &#123;
+                printf(&quot;%d &quot;, cnt);
+            &#125;
+        &#125;
+    &#125;
+&#125;
+int main()&#123;
+    scanf(&quot;%d&quot;, &amp;n);
+    if (n == 2)&#123;
+        printf(&quot;-1&quot;);
+    &#125; else if (n % 2)&#123;
+        jishu();
+    &#125; else &#123;
+        oushu();
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -218,6 +366,12 @@
     <script src="/live2d-widget/autoload.js"></script>
     // <script src="dist/live2d_bundle.js"></script>
     // <script async type="module" src="waifu-tips.js"></script>
+    
+    
+
+
+
+
     
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":150,"height":400},"mobile":{"show":false},"log":false});</script></body>
 </html>
