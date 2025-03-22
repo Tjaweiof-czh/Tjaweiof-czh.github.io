@@ -171,11 +171,90 @@
             2025/3/9
         </span>
         
+        <span class="category">
+            <a href="/categories/%E9%A2%98%E8%A7%A3/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                题解
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #00bcd4">
+                    洛谷
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00a596">
+                    题解
+                </a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        
+        <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6724">题目传送门</a></p>
+<p>注意到字符串的长度不超过 $10^5$。</p>
+<span id="more"></span>
+
+<p>解法：暴力枚举词根的长度（设为 $s$），用桶存前 $s$ 个字母，再判断后面每一组符不符合要求。若符合，则直接输出前 $s$ 个字母。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre><code class="cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+char ch[1000001];
+int a[27], b[27], n;
+bool work(int i)&#123;
+    memset(a, 0, sizeof a);
+    int now = 0, k = n / i - 1;
+    bool f = 1;
+    for (int j = 1; j &lt;= i; j++)&#123;
+        a[ch[now] - 97]++;
+        now++;
+    &#125;
+    for (int t = 1; t &lt;= k; t++)&#123;
+        memset(b, 0, sizeof b);
+        for (int j = 1; j &lt;= i; j++)&#123;
+            b[ch[now] - 97]++;
+            now++;
+        &#125;
+        for (int j = 0; j &lt; 26; j++)&#123;
+            if (a[j] != b[j])&#123;
+                f = 0;
+            &#125;
+        &#125;
+    &#125;
+    return f;
+&#125;
+int main()&#123;
+    scanf(&quot;%s&quot;, ch);
+    n = strlen(ch);
+    for (int i = 1; i &lt; n; i++)&#123;
+        if (n % i == 0)&#123;
+            if (work(i))&#123;
+                for (int j = 0; j &lt; i; j++)&#123;
+                    printf(&quot;%c&quot;, ch[j]);
+                &#125;
+                return 0;
+            &#125;
+        &#125;
+    &#125;
+    printf(&quot;-1&quot;);
+    return 0;
+&#125;
+</code></pre>
+
     </div>
     
     

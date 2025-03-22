@@ -171,11 +171,92 @@
             2025/3/9
         </span>
         
+        <span class="category">
+            <a href="/categories/%E9%A2%98%E8%A7%A3/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                题解
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #00bcd4">
+                    洛谷
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #03a9f4">
+                    题解
+                </a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        
+        <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2539">题目传送门</a></p>
+<p>看到题目的第一眼，唉？这不是简单的递归吗？</p>
+<span id="more"></span>
+
+<p>思路：当输入的数为 $2$ 时，继续递归。为了方便统计，每次递归的参数 $-1$，每次输入 $0$ 时直接把结果加上$2^x \times 2^x$。</p>
+<p>于是，我们写出了以下代码：</p>
+<pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int k, ans = 0;
+char tmp;
+void work(int x)&#123;
+    scanf(&quot; %c&quot;, &amp;tmp);
+    if (tmp == &#39;2&#39;)&#123;
+        for (int k = 1; k &lt;= 4; k++)&#123;
+            work(x - 1);
+        &#125;
+    &#125; else if (tmp == &#39;0&#39;)&#123;
+        ans += pow(2, x) * pow(2, x);
+    &#125;
+&#125;
+int main()&#123;
+    scanf(&quot;%d&quot;, &amp;k);
+    work(k);
+    printf(&quot;%d&quot;, ans);
+    return 0;
+&#125;
+</code></pre>
+<p>但是，你会看到<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/115576328">这个页面</a>，看了一些大佬的题解才知道，原来要用 double，随后把 $ans$ 的类型设为 double。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int k;
+double ans = 0;
+char tmp;
+void work(int x)&#123;
+    scanf(&quot; %c&quot;, &amp;tmp);
+    if (tmp == &#39;2&#39;)&#123;
+        for (int k = 1; k &lt;= 4; k++)&#123;
+            work(x - 1);
+        &#125;
+    &#125; else if (tmp == &#39;0&#39;)&#123;
+        ans += pow(2, x) * pow(2, x);
+    &#125;
+&#125;
+int main()&#123;
+    scanf(&quot;%d&quot;, &amp;k);
+    work(k);
+    printf(&quot;%.0lf&quot;, ans);
+    return 0;
+&#125;
+</code></pre>
+
     </div>
     
     
