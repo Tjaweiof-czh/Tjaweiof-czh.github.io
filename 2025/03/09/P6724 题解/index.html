@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Categories: 题解 | Tjaweiof&#39;s Blog</title>
+    <title>P6724题解 | Tjaweiof&#39;s Blog</title>
     <meta name="author" content="Tjaweiof" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -42,6 +42,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -155,14 +159,20 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>P6724题解</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/3/9
+        </span>
         
-        
-        
-        <span>
-            <a href="/categories/%E9%A2%98%E8%A7%A3/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+        <span class="category">
+            <a href="/categories/%E9%A2%98%E8%A7%A3/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
@@ -171,241 +181,87 @@
         </span>
         
         
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ff7d73">
+                    洛谷
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00a596">
+                    题解
+                </a>
+            </span>
+            
+        </span>
         
-        
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/4/12</div>
-            <a href="/2025/04/12/P1911%20%E9%A2%98%E8%A7%A3/">
-                <h3>CF468A</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        题解
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #00a596">
-                            洛谷
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #03a9f4">
-                            题解
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6724">题目传送门</a></p>
+<p>注意到字符串的长度不超过 $10^5$。</p>
+<span id="more"></span>
+
+<p>解法：暴力枚举词根的长度（设为 $s$），用桶存前 $s$ 个字母，再判断后面每一组符不符合要求。若符合，则直接输出前 $s$ 个字母。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre><code class="cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+char ch[1000001];
+int a[27], b[27], n;
+bool work(int i)&#123;
+    memset(a, 0, sizeof a);
+    int now = 0, k = n / i - 1;
+    bool f = 1;
+    for (int j = 1; j &lt;= i; j++)&#123;
+        a[ch[now] - 97]++;
+        now++;
+    &#125;
+    for (int t = 1; t &lt;= k; t++)&#123;
+        memset(b, 0, sizeof b);
+        for (int j = 1; j &lt;= i; j++)&#123;
+            b[ch[now] - 97]++;
+            now++;
+        &#125;
+        for (int j = 0; j &lt; 26; j++)&#123;
+            if (a[j] != b[j])&#123;
+                f = 0;
+            &#125;
+        &#125;
+    &#125;
+    return f;
+&#125;
+int main()&#123;
+    scanf(&quot;%s&quot;, ch);
+    n = strlen(ch);
+    for (int i = 1; i &lt; n; i++)&#123;
+        if (n % i == 0)&#123;
+            if (work(i))&#123;
+                for (int j = 0; j &lt; i; j++)&#123;
+                    printf(&quot;%c&quot;, ch[j]);
+                &#125;
+                return 0;
+            &#125;
+        &#125;
+    &#125;
+    printf(&quot;-1&quot;);
+    return 0;
+&#125;
+</code></pre>
+
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/3/16</div>
-            <a href="/2025/03/16/CF468A%20%E9%A2%98%E8%A7%A3/">
-                <h3>CF468A</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        题解
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #00bcd4">
-                            洛谷
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #03a9f4">
-                            题解
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/Codeforces/" style="color: #00bcd4">
-                            Codeforces
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
-    </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/3/9</div>
-            <a href="/2025/03/09/P2539%20%E9%A2%98%E8%A7%A3/">
-                <h3>P2539题解</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        题解
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ffa2c4">
-                            洛谷
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00bcd4">
-                            题解
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
-    </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/3/9</div>
-            <a href="/2025/03/09/P6724%20%E9%A2%98%E8%A7%A3/">
-                <h3>P6724题解</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        题解
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ff7d73">
-                            洛谷
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00bcd4">
-                            题解
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
-    </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/3/9</div>
-            <a href="/2025/03/09/P6497%20%E9%A2%98%E8%A7%A3/">
-                <h3>P6497题解</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        题解
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #03a9f4">
-                            洛谷
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ffa2c4">
-                            题解
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
-    </div>
+    
+    
     
 </div>
 
@@ -452,6 +308,12 @@
     <script src="/live2d-widget/autoload.js"></script>
     // <script src="dist/live2d_bundle.js"></script>
     // <script async type="module" src="waifu-tips.js"></script>
+    
+    
+
+
+
+
     
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":150,"height":375},"mobile":{"show":false},"log":false});</script></body>
 </html>

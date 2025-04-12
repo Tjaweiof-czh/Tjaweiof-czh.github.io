@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Hello World | Tjaweiof&#39;s Blog</title>
+    <title>CF468A | Tjaweiof&#39;s Blog</title>
     <meta name="author" content="Tjaweiof" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -161,33 +161,88 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>Hello World</h1>
+        <h1>CF468A</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/3/1
+            2025/3/16
         </span>
         
+        <span class="category">
+            <a href="/categories/%E9%A2%98%E8%A7%A3/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                题解
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #00a596">
+                    洛谷
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ff7d73">
+                    题解
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Codeforces/" style="color: #ffa2c4">
+                    Codeforces
+                </a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+        <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF468A">题目传送门</a></p>
+<p>找规律题，$n$ 可以从 $1$ 开始找规律。</p>
+<span id="more"></span>
+<h3 id="n"><a href="#n" class="headerlink" title="n&lt;4"></a>n&lt;4</h3><p>最大 $(1+2)\times3&#x3D;9$，输出 <code>NO</code>。</p>
+<h3 id="n-4"><a href="#n-4" class="headerlink" title="n&#x3D;4"></a>n&#x3D;4</h3><p>$(1+2+3)\times4&#x3D;24$，成立。</p>
+<h3 id="n-5"><a href="#n-5" class="headerlink" title="n&#x3D;5"></a>n&#x3D;5</h3><p>$5\times4+3+2-1&#x3D;24$，成立。</p>
+<p>我们已经知道 $4$ 和 $5$ 怎么做了，那么每次只需要 $\times1$ 就结束了。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int n;
+int main()&#123;
+    std::ios::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+    cin &gt;&gt; n;
+    if (n &lt; 4)&#123;
+        cout &lt;&lt; &quot;NO&quot;;
+    &#125; else if (n % 2)&#123;
+        cout &lt;&lt; &quot;YES\n5 * 4 = 20\n20 + 3 = 23\n23 + 2 = 25\n25 - 1 = 24\n&quot;;
+        for (int i = n; i &gt;= 6; i -= 2)&#123;
+            cout &lt;&lt; i &lt;&lt; &quot; - &quot; &lt;&lt; i - 1 &lt;&lt;&quot; = 1\n24 * 1 = 24\n&quot;;
+        &#125;
+    &#125; else &#123;
+        cout &lt;&lt; &quot;YES\n1 + 2 = 3\n3 + 3 = 6\n4 * 6 = 24\n&quot;;
+        for (int i = n; i &gt;= 5; i -= 2)&#123;
+            cout &lt;&lt; i &lt;&lt; &quot; - &quot; &lt;&lt; i - 1 &lt;&lt; &quot; = 1\n24 * 1 = 24\n&quot;;
+        &#125;
+    &#125;
+    return 0;
+&#125;
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
     </div>
     
