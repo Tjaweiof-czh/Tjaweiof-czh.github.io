@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>Tjaweiof&#39;s Blog</title>
+    <title>2025.12.18 虚树 | Tjaweiof&#39;s Blog</title>
     <meta name="author" content="Tjaweiof" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -47,7 +47,9 @@
 
 
 
-<script src="/js/lib/home.js"></script>
+
+
+
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -171,39 +173,17 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div
-        id="home-background"
-        ref="homeBackground"
-        data-images="/images/background.jpg"
-    ></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>Tjaweiof&#39;s Blog</h1>
-                <h3>逸一时，误一世</h3>
-                <h5></h5>
-            </div>
-        </span>
+            <div class="article">
+    <div>
+        <h1>2025.12.18 虚树</h1>
     </div>
-</div>
-<div
-    id="home-posts-wrap"
-    ref="homePostsWrap"
-    true
->
-    <div id="home-posts">
-        
-
-<div class="post">
-    <a href="/2025/04/12/2025.12.18%20%E8%99%9A%E6%A0%91/">
-        <h2 class="post-title">2025.12.18 虚树</h2>
-    </a>
-    <div class="category-and-date">
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/4/12
+        </span>
         
         <span class="category">
             <a href="/categories/%E9%A2%98%E8%A7%A3/">
@@ -214,23 +194,33 @@
             </a>
         </span>
         
-        <span class="date">
+        
+        <span class="tags">
             <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+                <i class="fa-solid fa-tags fa-fw"></i>
             </span>
-            2025/4/12
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ff7d73">
+                    洛谷
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #03a9f4">
+                    题解
+                </a>
+            </span>
+            
         </span>
         
     </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><img src="https://cdn.luogu.com.cn/upload/image_hosting/wgy982ae.png"></p>
+    
+    <div class="content" v-pre>
+        <p><img src="https://cdn.luogu.com.cn/upload/image_hosting/wgy982ae.png"></p>
 <p>为了应对如上情况，我们需要严肃学习虚树。</p>
 <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
 <li><del>树的基本概念、树的存储、树的遍历；</del></li>
@@ -467,304 +457,17 @@ int main()&#123;
 <p><del>习题乎似比例题简单。</del></p>
 <p>有点少，但是我觉得完全掌握这几道题应该就挺够的了。</p>
 
-            
-        </div>
     </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ffa2c4">洛谷</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ff7d73">题解</a>
-        </span>
-        
-    </div>
-    <a href="/2025/04/12/2025.12.18%20%E8%99%9A%E6%A0%91/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/04/12/P1911%20%E9%A2%98%E8%A7%A3/">
-        <h2 class="post-title">P1911</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/4/12
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1911">题目传送门</a></p>
-<p>看到这题，我们不免想到一条定理：$2^{2^n}-1$ 一定能被 $3$ 整除。证明方法：$\because2^{2^n}&#x3D;4^n$，$\therefore4\equiv1(\bmod\ 3)$，$\therefore4^n\equiv1^n(\bmod\ 3)$。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #00bcd4">洛谷</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ffa2c4">题解</a>
-        </span>
-        
-    </div>
-    <a href="/2025/04/12/P1911%20%E9%A2%98%E8%A7%A3/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/03/09/P2539%20%E9%A2%98%E8%A7%A3/">
-        <h2 class="post-title">P2539题解</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/3/9
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2539">题目传送门</a></p>
-<p>看到题目的第一眼，唉？这不是简单的递归吗？</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ff7d73">洛谷</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00a596">题解</a>
-        </span>
-        
-    </div>
-    <a href="/2025/03/09/P2539%20%E9%A2%98%E8%A7%A3/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/03/09/P6724%20%E9%A2%98%E8%A7%A3/">
-        <h2 class="post-title">P6724题解</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/3/9
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6724">题目传送门</a></p>
-<p>注意到字符串的长度不超过 $10^5$。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ff7d73">洛谷</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ffa2c4">题解</a>
-        </span>
-        
-    </div>
-    <a href="/2025/03/09/P6724%20%E9%A2%98%E8%A7%A3/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/03/09/P6497%20%E9%A2%98%E8%A7%A3/">
-        <h2 class="post-title">P6497题解</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/3/9
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6724">题目传送门</a></p>
-<h3 id="一道找规律的题"><a href="#一道找规律的题" class="headerlink" title="一道找规律的题"></a><del>一道找规律的题</del></h3><p>这道题需要分类讨论：</p>
-<ol>
-<li>奇数</li>
-<li>偶数</li>
-</ol>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #03a9f4">洛谷</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00a596">题解</a>
-        </span>
-        
-    </div>
-    <a href="/2025/03/09/P6497%20%E9%A2%98%E8%A7%A3/" class="go-post">阅读全文</a>
-</div>
-
-
-        <div class="page-current">
-    
-    <span class="current">1</span>
     
     
     
     
-</div>
-
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
     </div>
     
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">Tjaweiof</div>
-        <div class="description">
-            <p>眼前的似乎是最短路径，然而有时候另辟蹊径，才是最优选择</p>
-
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
-            </div>
-            
-        </div>
-        
-    </div>
-</div>
-
-    </div>
+    
+    
     
 </div>
 
@@ -811,6 +514,29 @@ int main()&#123;
     <script src="/live2d-widget/autoload.js"></script>
     // <script src="dist/live2d_bundle.js"></script>
     // <script async type="module" src="waifu-tips.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo=""
+    data-repo-id=""
+    data-category=""
+    data-category-id=""
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":150,"height":375},"mobile":{"show":false},"log":false});</script></body>
 </html>
