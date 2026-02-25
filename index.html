@@ -200,17 +200,17 @@
         
 
 <div class="post">
-    <a href="/2025/04/12/2025.12.18%20%E8%99%9A%E6%A0%91/">
+    <a href="/2025/12/09/2025.12.18%20%E8%99%9A%E6%A0%91/">
         <h2 class="post-title">2025.12.18 虚树</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                题解
+                算法
             </a>
         </span>
         
@@ -218,7 +218,7 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/4/12
+            2025/12/9
         </span>
         
         
@@ -232,241 +232,6 @@
             
             <p><img src="https://cdn.luogu.com.cn/upload/image_hosting/wgy982ae.png"></p>
 <p>为了应对如上情况，我们需要严肃学习虚树。</p>
-<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
-<li><del>树的基本概念、树的存储、树的遍历；</del></li>
-<li>最近公共祖先（LCA）；</li>
-<li>树形动态规划、树链剖分、树上倍增等树上算法。</li>
-</ul>
-<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>我们先看一道题目：</p>
-<p>给定一棵 $n$ 个点的树，边有边权，树上有 $k$ 个关键点（都不为 $1$ 号点），你可以删除一些边，使得 $1$ 号点不能经过剩余的边到达任意一个关键点，最小化你删除的边的边权之和，并输出这个最小值。$1\le m\le n\le10^6$。</p>
-<p>树形 $\text{dp}$。设 $dp_x$ 为删除一些边，使得 $x$ 号点不能经过剩余的边到达 $x$ 的子树内（除 $x$ 以外）任意一个关键点的最小代价。即，仅考虑 $x$ 的子树的答案。</p>
-<p>遍历一遍整棵树。对于每个点 $u$，枚举它的儿子 $v$，设 $w$ 为 $u$ 到 $v$ 的边的边权：</p>
-<ul>
-<li>若 $v$ 不是关键点：$dp_u\to dp_u+\min{dp_v,w}$；</li>
-<li>若 $v$ 是关键点：$dp_u\to dp_u+w$。</li>
-</ul>
-<p>时间复杂度 $\mathcal O(n)$。</p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>如果多次询问呢？</p>
-<p>:::info[<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2495">P2495 【模板】虚树 &#x2F; [SDOI2011] 消耗战</a>]<br>在一场战争中，战场由 $n$ 个岛屿和 $n-1$ 个桥梁组成，保证每两个岛屿间有且仅有一条路径可达。现在，我军已经侦查到敌军的总部在编号为 $1$ 的岛屿，而且他们已经没有足够多的能源维系战斗，我军胜利在望。已知在其他 $k$ 个岛屿上有丰富能源，为了防止敌军获取能源，我军的任务是炸毁一些桥梁，使得敌军不能到达任何能源丰富的岛屿。由于不同桥梁的材质和结构不同，所以炸毁不同的桥梁有不同的代价，我军希望在满足目标的同时使得总代价最小。  </p>
-<p>侦查部门还发现，敌军有一台神秘机器。即使我军切断所有能源之后，他们也可以用那台机器。机器产生的效果不仅仅会修复所有我军炸毁的桥梁，而且会重新随机资源分布（但可以保证的是，资源不会分布到 $1$ 号岛屿上）。不过侦查部门还发现了这台机器只能够使用 $m$ 次，所以我们只需要把每次任务完成即可。</p>
-<p>对于 $100%$ 的数据，$2\leq n \leq 2.5\times 10^5, 1\leq m\leq 5\times 10^5, \sum k_i \leq 5\times 10^5, 1\leq k_i&lt; n, h_i\neq 1, 1\leq u,v\leq n, 1\leq w\leq 10^5$ 。<br>:::</p>
-<p>如果按照之前的做法，每次询问都要重新 $\text{dp}$，时间复杂度 $\mathcal O(qn)$，正常情况下无法通过。</p>
-<p>考虑如何优化这个 $\text{dp}$。</p>
-<ol>
-<li><p>注意到如果一个子树内没有任何一个关键点，那么直接删去这个子树后对答案不影响。</p>
-</li>
-<li><p>考虑剩下的树中的一条链。设上端为 $u$，下端为 $v$，若这条链上除了 $v$ 都只有一个儿子（即不存在“分支”），那么如果我们把中间的点全部去掉，再给 $u,v$ 之间连一条边，边权为原来的边的边权的最小值，这对答案不影响。</p>
-</li>
-</ol>
-<p>结合两点，发现如果一个点不是关键点、且不是某两个关键点的最近公共祖先，那么这个点是可以被删去的。</p>
-<p>注意到，经过这样的“删点”，剩下的点最多只有 $2k-1$ 个。</p>
-<p>:::info[证明]{open}<br>考虑 $\text{lca}(x,y)$，若有 $z$ 在 $\text{lca}(x,y)$ 的子树内，那么 $\text{lca}(x,y)$ 一定是 $\text{lca}(x,z)$ 或 $\text{lca}(y,z)$。</p>
-<p>所以只要先按 $\text{dfn}$ 排序，那么任意两个关键点的 $\text{lca}$ 都是某两个编号相邻的关键点的 $\text{lca}$，最多有 $k-1$ 个不同的。再加上原本的 $k$ 个点，故最多只有 $2k-1$ 个。<br>:::</p>
-<p>如果在这样的树上做之前的 $\text{dp}$，总时间复杂度就是 $\mathcal O(\sum k)$ 的，可以通过。</p>
-<p>这就是 <strong>虚树</strong>。</p>
-<p>那如何建树？</p>
-<h2 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h2><h3 id="第一种方法"><a href="#第一种方法" class="headerlink" title="第一种方法"></a>第一种方法</h3><p>不妨加入点 $1$。</p>
-<p>先按 $\text{dfn}$ 排序，算出所有编号相邻的点的 $\text{lca}$，加上原来的点，得到序列 $a$，序列 $a$ 就是虚树上的所有点。</p>
-<p>然后再把序列 $a$ 按 $\text{dfn}$ 排序并去重，连接所有 $(\text{lca}(a_i,a_{i+1}),a_{i+1})$ 就是我们需要构建的虚树了。</p>
-<p>:::info[想一想，为什么连接所有 $(\text{lca}(a_i,a_{i+1}),a_{i+1})$ 就行？]</p>
-<ul>
-<li>$a_i$ 是 $a_{i+1}$ 的祖先，$\text{dfn}$ 保证了它们之间的路径上没有任何一个点在虚树上，所以要连接 $(a_i,a_{i+1})$，而 $a_i&#x3D;\text{lca}(a_i,a_{i+1})$；</li>
-<li>$a_i$ 不是 $a_{i+1}$ 的祖先，$\text{dfn}$ 保证了 $\text{lca}(a_i,a_{i+1})$ 到 $a_{i+1}$ 之间的路径上没有任何一个点在虚树上，所以要连接 $(\text{lca}(a_i,a_{i+1}),a_{i+1})$。</li>
-</ul>
-<p>又由于 $a_1&#x3D;1$ 没有父亲，其余 $a_i$ 都有一个父亲，这样的连边方式正好可以做到不重不漏。<br>:::</p>
-<p>时间复杂度 $O(k\log n)$。</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><pre><code class="cpp">void buildVT()&#123;
-    sort(a + 1, a + m + 1, cmp);
-    int tmp = m;
-    for (int i = 2; i &lt;= tmp; i++)&#123;
-        a[++m] = lca(a[i - 1], a[i]);
-    &#125;
-    a[++m] = 1;
-    sort(a + 1, a + m + 1, cmp);
-    m = unique(a + 1, a + m + 1) - a - 1;
-    for (int i = 2; i &lt;= m; i++)&#123;
-        g[lca(a[i - 1], a[i])].push_back(a[i]);
-    &#125;
-    return;
-&#125;
-</code></pre>
-<h3 id="第二种方法"><a href="#第二种方法" class="headerlink" title="第二种方法"></a>第二种方法</h3><p>用一个栈来维护虚树上的一条链。也就是栈里相邻的两个节点在虚树上也是相邻的，而且栈从底部到顶部的 $\text{dfn}$ 是单调递增的，说白了就是某个节点的父亲就是栈中它下面的那个节点。</p>
-<p>首先在栈中添加点 $1$。</p>
-<p>然后接下来按照 $\text{dfn}$ 从小到大枚举关键点。</p>
-<ul>
-<li>若当前的节点与栈顶节点的 $\text{lca}$ 就是栈顶节点的话，则说明它们是在一条链上的。所以直接把当前节点入栈就行了。</li>
-</ul>
-<p>代码自己尝试写，不放了。$\color{white}我不会告诉你这是因为我没写过。$</p>
-<hr>
-<h3 id="与原树的不同之处"><a href="#与原树的不同之处" class="headerlink" title="与原树的不同之处"></a>与原树的不同之处</h3><p>一般来说，虚树题的难点就在这，但既然这题是模板，就显然不会太难。</p>
-<p>边权要变成原来路径上所有边的最小值。</p>
-<p>可以用重链剖分+序列维护区间最值算法（如线段树、ST 表）或者树上倍增等方法处理路径最小值。</p>
-<p>然后你就会这道题了。</p>
-<p>清空的时候要注意，不能 <code>memset</code> 或者枚举 $n$，这样你的虚树就没有用了。正确做法是：用了什么就清什么。</p>
-<p>:::success[完整代码]</p>
-<pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-#define FILE(x) freopen(x&quot;.in&quot;, &quot;r&quot;, stdin);freopen(x&quot;.out&quot;, &quot;w&quot;, stdout);
-int n, q, m, a[500001];
-bool imp[250001];
-long long value[250001], dp[250001];
-int fa[250001], depth[250001], son[250001], sz[250001], head[250001], dfn[250001], ddfn[250001], tot;
-vector &lt;pair &lt;int, long long&gt; &gt; e[250001];
-vector &lt;int&gt; g[250001];
-int hi[500001];
-long long mi[19], ST[250001][19];
-void dfs1(int x, int father, int dep)&#123;
-    fa[x] = father;
-    depth[x] = dep;
-    sz[x] = 1;
-    for (pair &lt;int, long long&gt; u : e[x])&#123;
-        if (u.first == father)&#123;
-            continue;
-        &#125;
-        value[u.first] = u.second;
-        dfs1(u.first, x, dep + 1);
-        sz[x] += sz[u.first];
-        if (sz[u.first] &gt; sz[son[x]])&#123;
-            son[x] = u.first;
-        &#125;
-    &#125;
-    return;
-&#125;
-void dfs2(int x, int he)&#123;
-    dfn[x] = ++tot;
-    ddfn[tot] = x;
-    head[x] = he;
-    if (son[x])&#123;
-        dfs2(son[x], he);
-        for (pair &lt;int, long long&gt; u : e[x])&#123;
-            if (u.first == fa[x] || u.first == son[x])&#123;
-                continue;
-            &#125;
-            dfs2(u.first, u.first);
-        &#125;
-    &#125;
-    return;
-&#125;
-int lca(int u, int v)&#123;
-    while (head[u] != head[v])&#123;
-        if (depth[head[u]] &lt; depth[head[v]])&#123;
-            swap(u, v);
-        &#125;
-        u = fa[head[u]];
-    &#125;
-    if (depth[u] &gt; depth[v])&#123;
-        swap(u, v);
-    &#125;
-    return u;
-&#125;
-long long qmin(int l, int r)&#123;
-    return min(ST[l][hi[r - l + 1]], ST[r - (1 &lt;&lt; hi[r - l + 1]) + 1][hi[r - l + 1]]);
-&#125;
-long long querymin(int u, int v)&#123;
-    long long res = 1e18;
-    while (head[u] != head[v])&#123;
-        if (depth[head[u]] &lt; depth[head[v]])&#123;
-            swap(u, v);
-        &#125;
-        res = min(res, qmin(dfn[head[u]], dfn[u]));
-        u = fa[head[u]];
-    &#125;
-    if (u == v)&#123;
-        return res;
-    &#125;
-    if (depth[u] &gt; depth[v])&#123;
-        swap(u, v);
-    &#125;
-    res = min(res, qmin(dfn[u] + 1, dfn[v]));
-    return res;
-&#125;
-bool cmp(int x, int y)&#123;
-    return dfn[x] &lt; dfn[y];
-&#125;
-void buildVT()&#123;
-    sort(a + 1, a + m + 1, cmp);
-    int tmp = m;
-    for (int i = 2; i &lt;= tmp; i++)&#123;
-        a[++m] = lca(a[i - 1], a[i]);
-    &#125;
-    a[++m] = 1;
-    sort(a + 1, a + m + 1, cmp);
-    m = unique(a + 1, a + m + 1) - a - 1;
-    for (int i = 2; i &lt;= m; i++)&#123;
-        g[lca(a[i - 1], a[i])].push_back(a[i]);
-    &#125;
-    return;
-&#125;
-void calc(int x)&#123;
-    dp[x] = 0;
-    for (int u : g[x])&#123;
-        calc(u);
-        if (imp[u])&#123;
-            dp[x] += querymin(x, u);
-        &#125; else &#123;
-            dp[x] += min(dp[u], querymin(x, u));
-        &#125;
-    &#125;
-    return;
-&#125;
-int main()&#123;
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
-    int u, v;
-    long long w;
-    cin &gt;&gt; n;
-    for (int i = 1; i &lt; n; i++)&#123;
-        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
-        e[u].push_back(&#123;v, w&#125;);
-        e[v].push_back(&#123;u, w&#125;);
-    &#125;
-    dfs1(1, 0, 1);
-    dfs2(1, 1);
-    mi[0] = 1;
-    hi[1] = 0;
-    for (int i = 1; i &lt;= 18; i++)&#123;
-        mi[i] = mi[i - 1] &lt;&lt; 1;
-        for (int j = mi[i - 1]; j &lt; mi[i]; j++)&#123;
-            hi[j] = i - 1;
-        &#125;
-    &#125;
-    for (int i = 1; i &lt;= n; i++)&#123;
-        ST[i][0] = value[ddfn[i]];
-    &#125;
-    for (int j = 1; j &lt;= 18; j++)&#123;
-        for (int i = 1; i &lt;= n; i++)&#123;
-            ST[i][j] = min(ST[i][j - 1], ST[i + mi[j - 1]][j - 1]);
-        &#125;
-    &#125;
-    cin &gt;&gt; q;
-    while (q--)&#123;
-        cin &gt;&gt; m;
-        for (int i = 1; i &lt;= m; i++)&#123;
-            cin &gt;&gt; a[i];
-            imp[a[i]] = true;
-        &#125;
-        buildVT();
-        calc(1);
-        cout &lt;&lt; dp[1] &lt;&lt; &quot;\n&quot;;
-        for (int i = 1; i &lt;= m; i++)&#123;
-            imp[a[i]] = false;
-        &#125;
-        for (int i = 2; i &lt;= m; i++)&#123;
-            g[lca(a[i - 1], a[i])].clear();
-        &#125;
-    &#125;
-    return 0;
-&#125;
-</code></pre>
-<p>:::</p>
-<h2 id="一些例题"><a href="#一些例题" class="headerlink" title="一些例题"></a>一些例题</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4103">P4103 [HEOI2014] 大工程</a></p>
-<p><a target="_blank" rel="noopener" href="http://218.5.5.242:9019/problem/85588306">「2025-04-09 NOIP 模拟赛」树上游戏 (game) </a>（感谢 $\colorbox{black}{\color{black}{数据删除}}$！！！）</p>
-<h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/613/D">CF613D Kingdom and its Cities</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3233">P3233 [HNOI2014] 世界树</a></p>
-<p><del>习题乎似比例题简单。</del></p>
-<p>有点少，但是我觉得完全掌握这几道题应该就挺够的了。</p>
-
             
         </div>
     </div>
@@ -480,30 +245,25 @@ int main()&#123;
         
         <span class="tag">
             
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ffa2c4">洛谷</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ff7d73">题解</a>
+            <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #03a9f4">算法</a>
         </span>
         
     </div>
-    <a href="/2025/04/12/2025.12.18%20%E8%99%9A%E6%A0%91/" class="go-post">阅读全文</a>
+    <a href="/2025/12/09/2025.12.18%20%E8%99%9A%E6%A0%91/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
-    <a href="/2025/04/12/P1911%20%E9%A2%98%E8%A7%A3/">
-        <h2 class="post-title">P1911</h2>
+    <a href="/2025/12/02/NOIP2025%20%E6%B8%B8%E8%AE%B0/">
+        <h2 class="post-title">NOIP2025 游记</h2>
     </a>
     <div class="category-and-date">
         
         <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
+            <a href="/categories/%E6%B8%B8%E8%AE%B0/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                题解
+                游记
             </a>
         </span>
         
@@ -511,7 +271,7 @@ int main()&#123;
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/4/12
+            2025/12/2
         </span>
         
         
@@ -523,8 +283,8 @@ int main()&#123;
     <div class="description">
         <div class="content" v-pre>
             
-            <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1911">题目传送门</a></p>
-<p>看到这题，我们不免想到一条定理：$2^{2^n}-1$ 一定能被 $3$ 整除。证明方法：$\because2^{2^n}&#x3D;4^n$，$\therefore4\equiv1(\bmod\ 3)$，$\therefore4^n\equiv1^n(\bmod\ 3)$。</p>
+            <h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>$\text{CSP-S2025}$ 获得了 $234\text{pts}$，省内年段排名相较于去年更后。</p>
+<p>参加 $\text{NOIP2025}$，依稀记得去年的两题正解写挂然后 $99\text{pts}$ 而二等线 $100\text{pts}$。</p>
             
         </div>
     </div>
@@ -538,194 +298,21 @@ int main()&#123;
         
         <span class="tag">
             
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #00bcd4">洛谷</a>
+            <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="color: #00a596">游记</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ffa2c4">题解</a>
-        </span>
-        
-    </div>
-    <a href="/2025/04/12/P1911%20%E9%A2%98%E8%A7%A3/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/03/09/P2539%20%E9%A2%98%E8%A7%A3/">
-        <h2 class="post-title">P2539题解</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/3/9
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2539">题目传送门</a></p>
-<p>看到题目的第一眼，唉？这不是简单的递归吗？</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ff7d73">洛谷</a>
+            <a href="/tags/NOIP/" style="color: #03a9f4">NOIP</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00a596">题解</a>
+            <a href="/tags/2025/" style="color: #00bcd4">2025</a>
         </span>
         
     </div>
-    <a href="/2025/03/09/P2539%20%E9%A2%98%E8%A7%A3/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/03/09/P6724%20%E9%A2%98%E8%A7%A3/">
-        <h2 class="post-title">P6724题解</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/3/9
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6724">题目传送门</a></p>
-<p>注意到字符串的长度不超过 $10^5$。</p>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ff7d73">洛谷</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ffa2c4">题解</a>
-        </span>
-        
-    </div>
-    <a href="/2025/03/09/P6724%20%E9%A2%98%E8%A7%A3/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/03/09/P6497%20%E9%A2%98%E8%A7%A3/">
-        <h2 class="post-title">P6497题解</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                题解
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/3/9
-        </span>
-        
-        
-        <span class="special">
-            <i class="fa-solid fa-grip-vertical fa-fw"></i>
-        </span>
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6724">题目传送门</a></p>
-<h3 id="一道找规律的题"><a href="#一道找规律的题" class="headerlink" title="一道找规律的题"></a><del>一道找规律的题</del></h3><p>这道题需要分类讨论：</p>
-<ol>
-<li>奇数</li>
-<li>偶数</li>
-</ol>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #03a9f4">洛谷</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00a596">题解</a>
-        </span>
-        
-    </div>
-    <a href="/2025/03/09/P6497%20%E9%A2%98%E8%A7%A3/" class="go-post">阅读全文</a>
+    <a href="/2025/12/02/NOIP2025%20%E6%B8%B8%E8%AE%B0/" class="go-post">阅读全文</a>
 </div>
 
 

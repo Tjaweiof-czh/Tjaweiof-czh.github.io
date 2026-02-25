@@ -182,15 +182,15 @@
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/4/12
+            2025/12/9
         </span>
         
         <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
+            <a href="/categories/%E7%AE%97%E6%B3%95/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                题解
+                算法
             </a>
         </span>
         
@@ -203,15 +203,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ff7d73">
-                    洛谷
-                </a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #03a9f4">
-                    题解
+                <a href="/tags/%E7%AE%97%E6%B3%95/" style="color: #ff7d73">
+                    算法
                 </a>
             </span>
             
@@ -222,6 +215,7 @@
     <div class="content" v-pre>
         <p><img src="https://cdn.luogu.com.cn/upload/image_hosting/wgy982ae.png"></p>
 <p>为了应对如上情况，我们需要严肃学习虚树。</p>
+<span id="more"></span>
 <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ul>
 <li><del>树的基本概念、树的存储、树的遍历；</del></li>
 <li>最近公共祖先（LCA）；</li>
@@ -237,9 +231,12 @@
 </ul>
 <p>时间复杂度 $\mathcal O(n)$。</p>
 <h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>如果多次询问呢？</p>
-<p>:::info[<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2495">P2495 【模板】虚树 &#x2F; [SDOI2011] 消耗战</a>]<br>在一场战争中，战场由 $n$ 个岛屿和 $n-1$ 个桥梁组成，保证每两个岛屿间有且仅有一条路径可达。现在，我军已经侦查到敌军的总部在编号为 $1$ 的岛屿，而且他们已经没有足够多的能源维系战斗，我军胜利在望。已知在其他 $k$ 个岛屿上有丰富能源，为了防止敌军获取能源，我军的任务是炸毁一些桥梁，使得敌军不能到达任何能源丰富的岛屿。由于不同桥梁的材质和结构不同，所以炸毁不同的桥梁有不同的代价，我军希望在满足目标的同时使得总代价最小。  </p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2495">P2495 【模板】虚树 &#x2F; [SDOI2011] 消耗战</a></p>
+<blockquote>
+<p>在一场战争中，战场由 $n$ 个岛屿和 $n-1$ 个桥梁组成，保证每两个岛屿间有且仅有一条路径可达。现在，我军已经侦查到敌军的总部在编号为 $1$ 的岛屿，而且他们已经没有足够多的能源维系战斗，我军胜利在望。已知在其他 $k$ 个岛屿上有丰富能源，为了防止敌军获取能源，我军的任务是炸毁一些桥梁，使得敌军不能到达任何能源丰富的岛屿。由于不同桥梁的材质和结构不同，所以炸毁不同的桥梁有不同的代价，我军希望在满足目标的同时使得总代价最小。  </p>
+</blockquote>
 <p>侦查部门还发现，敌军有一台神秘机器。即使我军切断所有能源之后，他们也可以用那台机器。机器产生的效果不仅仅会修复所有我军炸毁的桥梁，而且会重新随机资源分布（但可以保证的是，资源不会分布到 $1$ 号岛屿上）。不过侦查部门还发现了这台机器只能够使用 $m$ 次，所以我们只需要把每次任务完成即可。</p>
-<p>对于 $100%$ 的数据，$2\leq n \leq 2.5\times 10^5, 1\leq m\leq 5\times 10^5, \sum k_i \leq 5\times 10^5, 1\leq k_i&lt; n, h_i\neq 1, 1\leq u,v\leq n, 1\leq w\leq 10^5$ 。<br>:::</p>
+<p>对于 $100%$ 的数据，$2\leq n \leq 2.5\times 10^5, 1\leq m\leq 5\times 10^5, \sum k_i \leq 5\times 10^5, 1\leq k_i&lt; n, h_i\neq 1, 1\leq u,v\leq n, 1\leq w\leq 10^5$ 。</p>
 <p>如果按照之前的做法，每次询问都要重新 $\text{dp}$，时间复杂度 $\mathcal O(qn)$，正常情况下无法通过。</p>
 <p>考虑如何优化这个 $\text{dp}$。</p>
 <ol>
@@ -250,20 +247,22 @@
 </ol>
 <p>结合两点，发现如果一个点不是关键点、且不是某两个关键点的最近公共祖先，那么这个点是可以被删去的。</p>
 <p>注意到，经过这样的“删点”，剩下的点最多只有 $2k-1$ 个。</p>
-<p>:::info[证明]{open}<br>考虑 $\text{lca}(x,y)$，若有 $z$ 在 $\text{lca}(x,y)$ 的子树内，那么 $\text{lca}(x,y)$ 一定是 $\text{lca}(x,z)$ 或 $\text{lca}(y,z)$。</p>
-<p>所以只要先按 $\text{dfn}$ 排序，那么任意两个关键点的 $\text{lca}$ 都是某两个编号相邻的关键点的 $\text{lca}$，最多有 $k-1$ 个不同的。再加上原本的 $k$ 个点，故最多只有 $2k-1$ 个。<br>:::</p>
+<p>证明</p>
+<blockquote>
+<p>考虑 $\text{lca}(x,y)$，若有 $z$ 在 $\text{lca}(x,y)$ 的子树内，那么 $\text{lca}(x,y)$ 一定是 $\text{lca}(x,z)$ 或 $\text{lca}(y,z)$。<br>所以只要先按 $\text{dfn}$ 排序，那么任意两个关键点的 $\text{lca}$ 都是某两个编号相邻的关键点的 $\text{lca}$，最多有 $k-1$ 个不同的。再加上原本的 $k$ 个点，故最多只有 $2k-1$ 个。</p>
+</blockquote>
 <p>如果在这样的树上做之前的 $\text{dp}$，总时间复杂度就是 $\mathcal O(\sum k)$ 的，可以通过。</p>
 <p>这就是 <strong>虚树</strong>。</p>
 <p>那如何建树？</p>
 <h2 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h2><h3 id="第一种方法"><a href="#第一种方法" class="headerlink" title="第一种方法"></a>第一种方法</h3><p>不妨加入点 $1$。</p>
 <p>先按 $\text{dfn}$ 排序，算出所有编号相邻的点的 $\text{lca}$，加上原来的点，得到序列 $a$，序列 $a$ 就是虚树上的所有点。</p>
 <p>然后再把序列 $a$ 按 $\text{dfn}$ 排序并去重，连接所有 $(\text{lca}(a_i,a_{i+1}),a_{i+1})$ 就是我们需要构建的虚树了。</p>
-<p>:::info[想一想，为什么连接所有 $(\text{lca}(a_i,a_{i+1}),a_{i+1})$ 就行？]</p>
+<p>想一想，为什么连接所有 $(\text{lca}(a_i,a_{i+1}),a_{i+1})$ 就行？</p>
 <ul>
 <li>$a_i$ 是 $a_{i+1}$ 的祖先，$\text{dfn}$ 保证了它们之间的路径上没有任何一个点在虚树上，所以要连接 $(a_i,a_{i+1})$，而 $a_i&#x3D;\text{lca}(a_i,a_{i+1})$；</li>
 <li>$a_i$ 不是 $a_{i+1}$ 的祖先，$\text{dfn}$ 保证了 $\text{lca}(a_i,a_{i+1})$ 到 $a_{i+1}$ 之间的路径上没有任何一个点在虚树上，所以要连接 $(\text{lca}(a_i,a_{i+1}),a_{i+1})$。</li>
 </ul>
-<p>又由于 $a_1&#x3D;1$ 没有父亲，其余 $a_i$ 都有一个父亲，这样的连边方式正好可以做到不重不漏。<br>:::</p>
+<p>又由于 $a_1&#x3D;1$ 没有父亲，其余 $a_i$ 都有一个父亲，这样的连边方式正好可以做到不重不漏。</p>
 <p>时间复杂度 $O(k\log n)$。</p>
 <h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><pre><code class="cpp">void buildVT()&#123;
     sort(a + 1, a + m + 1, cmp);
@@ -293,8 +292,7 @@
 <p>可以用重链剖分+序列维护区间最值算法（如线段树、ST 表）或者树上倍增等方法处理路径最小值。</p>
 <p>然后你就会这道题了。</p>
 <p>清空的时候要注意，不能 <code>memset</code> 或者枚举 $n$，这样你的虚树就没有用了。正确做法是：用了什么就清什么。</p>
-<p>:::success[完整代码]</p>
-<pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
 using namespace std;
 #define FILE(x) freopen(x&quot;.in&quot;, &quot;r&quot;, stdin);freopen(x&quot;.out&quot;, &quot;w&quot;, stdout);
 int n, q, m, a[500001];
@@ -449,7 +447,6 @@ int main()&#123;
     return 0;
 &#125;
 </code></pre>
-<p>:::</p>
 <h2 id="一些例题"><a href="#一些例题" class="headerlink" title="一些例题"></a>一些例题</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4103">P4103 [HEOI2014] 大工程</a></p>
 <p><a target="_blank" rel="noopener" href="http://218.5.5.242:9019/problem/85588306">「2025-04-09 NOIP 模拟赛」树上游戏 (game) </a>（感谢 $\colorbox{black}{\color{black}{数据删除}}$！！！）</p>
 <h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><p><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/613/D">CF613D Kingdom and its Cities</a></p>

@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>P1911 | Tjaweiof&#39;s Blog</title>
+    <title>Categories: 游记 | Tjaweiof&#39;s Blog</title>
     <meta name="author" content="Tjaweiof" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -42,10 +42,6 @@
 
 
 <script src="/js/lib/preview.js"></script>
-
-
-
-
 
 
 
@@ -173,222 +169,88 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1>P1911</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/4/12
-        </span>
+            <div id="archives">
+    
+    <div class="categories-tags">
         
-        <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
+        
+        
+        <span>
+            <a href="/categories/%E7%AE%97%E6%B3%95/" style="background: #00a596">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                题解
+                算法
             </a>
         </span>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            
-            <span class="tag">
-                
-                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #03a9f4">
-                    洛谷
-                </a>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00bcd4">
-                    题解
-                </a>
-            </span>
-            
+        
+        <span>
+            <a href="/categories/%E6%B8%B8%E8%AE%B0/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                游记
+            </a>
         </span>
+        
+        
+        
         
     </div>
     
-    <div class="content" v-pre>
-        <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1911">题目传送门</a></p>
-<p>看到这题，我们不免想到一条定理：$2^{2^n}-1$ 一定能被 $3$ 整除。证明方法：$\because2^{2^n}&#x3D;4^n$，$\therefore4\equiv1(\bmod\ 3)$，$\therefore4^n\equiv1^n(\bmod\ 3)$。</p>
-<span id="more"></span>
-
-<p>思路：每次将边长二分，分成四个部分，其中有一部分中有一个方块已经被用了，那么我们用 L 形军营把每个部分都用掉一个方块，示例（<code>*</code> 表示指挥营）：</p>
-<pre><code>0 0 * 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-</code></pre>
-<p>变成：</p>
-<pre><code>0 0 * 0
-0 1 0 0
-0 1 1 0
-0 0 0 0
-</code></pre>
-<p>然后分成四个部分：</p>
-<pre><code>0 0
-0 1
-</code></pre>
-<pre><code>* 0
-0 0
-</code></pre>
-<pre><code>0 1
-0 0
-</code></pre>
-<pre><code>1 0
-0 0
-</code></pre>
-<p>分别改成：</p>
-<pre><code>2 2
-2 1
-</code></pre>
-<pre><code>* 3
-3 3
-</code></pre>
-<pre><code>4 1
-4 4
-</code></pre>
-<pre><code>1 5
-5 5
-</code></pre>
-<p>最后是（把 <code>*</code> 改回 <code>0</code>）：</p>
-<pre><code>2 2 0 3
-2 1 3 3
-4 1 1 5
-4 4 5 5
-</code></pre>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
-long long Matrix[1025][1025], size, r, c, row, col, cnt = 1;
-bool flag[1025][1025];
-void chessBoard(int tr, int tc, int dr, int dc, int size)&#123;
-    int s;
-    if (1 == size) return;
-    s = size / 2;
-    if (dr &lt; tr + s &amp;&amp; dc &lt; tc + s)&#123;
-        Matrix[tr + s - 1][tc + s] = 3;
-        Matrix[tr + s][tc + s - 1] = 3;
-        Matrix[tr + s][tc + s] = 3;
-        chessBoard(tr,tc,dr,dc,s);
-        chessBoard(tr, tc + s, tr + s - 1, tc + s,s);
-        chessBoard(tr + s, tc, tr + s, tc + s - 1,s);
-        chessBoard(tr + s, tc + s, tr + s, tc + s,s);
-    &#125; else if (dr &lt; tr + s &amp;&amp; dc &gt;= tc + s)&#123;
-        Matrix[tr + s][tc + s - 1] = 1;
-        Matrix[tr + s - 1][tc + s - 1] = 1;
-        Matrix[tr + s][tc + s] = 1;
-        chessBoard(tr,tc,tr+s-1,tc+s-1,s);
-        chessBoard(tr, tc + s, dr,dc,s);
-        chessBoard(tr + s, tc, tr+s,tc + s - 1,s);
-        chessBoard(tr + s, tc + s, tr + s, tc + s, s);
-    &#125; else if (dr &gt;= tr + s &amp;&amp; dc &lt; tc + s)&#123;
-        Matrix[tr + s - 1][tc + s - 1] = 4;
-        Matrix[tr + s - 1][tc + s] = 4;
-        Matrix[tr + s][tc + s] = 4;
-        chessBoard(tr,tc,tr+s-1,tc+s-1,s);
-        chessBoard(tr, tc + s, tr + s - 1, tc + s, s);
-        chessBoard(tr + s, tc, dr,dc,s);
-        chessBoard(tr + s, tc + s, tr + s, tc + s, s);
-    &#125; else if (dr &gt;= tr + s &amp;&amp; dc &gt;= tc + s)&#123;
-        Matrix[tr + s][tc + s - 1] = 2;
-        Matrix[tr + s - 1][tc + s] = 2;
-        Matrix[tr + s - 1][tc + s - 1] = 2;
-        chessBoard(tr, tc, tr + s - 1, tc + s - 1, s);
-        chessBoard(tr, tc + s, tr + s - 1, tc + s, s);
-        chessBoard(tr + s, tc, tr + s, tc + s - 1, s);
-        chessBoard(tr + s, tc + s, dr, dc, s);
-    &#125;
-&#125;
-int main()&#123;
-    memset(Matrix,0,sizeof(Matrix));
-    scanf(&quot;%d%d%d&quot;, &amp;size, &amp;row, &amp;col);
-    row--;
-    col--;
-    long long S = 1;
-    for (int i = 0; i &lt; size; i++)&#123;
-        S *= 2;
-    &#125;
-    chessBoard(0,0,row,col,S);
-    for (r = 0; r &lt; S; r++)&#123;
-        for (c = 0; c &lt; S; c++)&#123;
-            if (flag[r][c] == false)&#123;
-                if (Matrix[r][c] == 1)&#123;
-                    Matrix[r][c] = cnt;
-                    Matrix[r+1][c] = cnt;
-                    Matrix[r+1][c+1] = cnt++;
-                    flag[r][c] = true;
-                    flag[r+1][c] = true;
-                    flag[r+1][c+1] = true;
-                &#125; else if (Matrix[r][c] == 2)&#123;
-                    Matrix[r][c] = cnt;
-                    Matrix[r+1][c] = cnt;
-                    Matrix[r][c+1] = cnt++;
-                    flag[r][c] = true;
-                    flag[r+1][c] = true;
-                    flag[r][c+1] = true;
-                &#125; else if (Matrix[r][c] == 3)&#123;
-                    Matrix[r][c] = cnt;
-                    Matrix[r+1][c] = cnt;
-                    Matrix[r+1][c-1] = cnt++;
-                    flag[r][c] = true;
-                    flag[r+1][c] = true;
-                    flag[r+1][c-1] = true;
-                &#125; else if (Matrix[r][c] == 4)&#123;
-                    Matrix[r][c] = cnt;
-                    Matrix[r+1][c+1] = cnt;
-                    Matrix[r][c+1] = cnt++;
-                    flag[r][c] = true;
-                    flag[r+1][c+1] = true;
-                    flag[r][c+1] = true;
-                &#125;
-            &#125;
-        &#125;
-    &#125;
-    for (r = 0; r &lt; S; r++)&#123;
-        for (c = 0; c &lt; S; c++)&#123;
-            printf(&quot;%d &quot;, Matrix[r][c]);
-        &#125;
-        printf(&quot;\n&quot;);
-    &#125;
-    return 0;
-&#125;
-</code></pre>
-<script src="https://giscus.app/client.js"
-        data-repo="Tjaweiof-czh/Tjaweiof-czh.github.io"
-        data-repo-id="R_kgDOOBcd0g"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOOBcd0s4CpB5F"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
-</script>
+    <div class="timeline">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2025/12/2</div>
+            <a href="/2025/12/02/NOIP2025%20%E6%B8%B8%E8%AE%B0/">
+                <h3>NOIP2025 游记</h3>
+            </a>
+            <div class="info">
+                
+                <span class="category">
+                    <a href="/categories/%E6%B8%B8%E8%AE%B0/">
+                        <span class="icon">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </span>
+                        游记
+                    </a>
+                </span>
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </span>
+                    
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="color: #00bcd4">
+                            游记
+                        </a>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/NOIP/" style="color: #00a596">
+                            NOIP
+                        </a>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/2025/" style="color: #03a9f4">
+                            2025
+                        </a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
     </div>
-    
-    
-    
-    
-    <div id="comment">
-        <div id="giscus-container" class="giscus"></div>
-    </div>
-    
-    
-    
     
 </div>
 
@@ -435,29 +297,6 @@ int main()&#123;
     <script src="/live2d-widget/autoload.js"></script>
     // <script src="dist/live2d_bundle.js"></script>
     // <script async type="module" src="waifu-tips.js"></script>
-    
-    
-<script
-    src="https://giscus.app/client.js"
-    data-repo=""
-    data-repo-id=""
-    data-category=""
-    data-category-id=""
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="preferred_color_scheme"
-    data-lang=""
-    crossorigin
-    async
-></script>
-
-
-
-
-
     
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":150,"height":375},"mobile":{"show":false},"log":false});</script></body>
 </html>

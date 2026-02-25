@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>P2539题解 | Tjaweiof&#39;s Blog</title>
+    <title>NOIP2025 游记 | Tjaweiof&#39;s Blog</title>
     <meta name="author" content="Tjaweiof" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -175,22 +175,22 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>P2539题解</h1>
+        <h1>NOIP2025 游记</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/3/9
+            2025/12/2
         </span>
         
         <span class="category">
-            <a href="/categories/%E9%A2%98%E8%A7%A3/">
+            <a href="/categories/%E6%B8%B8%E8%AE%B0/">
                 <span class="icon">
                     <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                题解
+                游记
             </a>
         </span>
         
@@ -203,15 +203,22 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="color: #ffa2c4">
-                    洛谷
+                <a href="/tags/%E6%B8%B8%E8%AE%B0/" style="color: #00a596">
+                    游记
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #ff7d73">
-                    题解
+                <a href="/tags/NOIP/" style="color: #ffa2c4">
+                    NOIP
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/2025/" style="color: #00bcd4">
+                    2025
                 </a>
             </span>
             
@@ -220,56 +227,39 @@
     </div>
     
     <div class="content" v-pre>
-        <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2539">题目传送门</a></p>
-<p>看到题目的第一眼，唉？这不是简单的递归吗？</p>
+        <h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>$\text{CSP-S2025}$ 获得了 $234\text{pts}$，省内年段排名相较于去年更后。</p>
+<p>参加 $\text{NOIP2025}$，依稀记得去年的两题正解写挂然后 $99\text{pts}$ 而二等线 $100\text{pts}$。</p>
 <span id="more"></span>
 
-<p>思路：当输入的数为 $2$ 时，继续递归。为了方便统计，每次递归的参数 $-1$，每次输入 $0$ 时直接把结果加上$2^x \times 2^x$。</p>
-<p>于是，我们写出了以下代码：</p>
-<pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int k, ans = 0;
-char tmp;
-void work(int x)&#123;
-    scanf(&quot; %c&quot;, &amp;tmp);
-    if (tmp == &#39;2&#39;)&#123;
-        for (int k = 1; k &lt;= 4; k++)&#123;
-            work(x - 1);
-        &#125;
-    &#125; else if (tmp == &#39;0&#39;)&#123;
-        ans += pow(2, x) * pow(2, x);
-    &#125;
-&#125;
-int main()&#123;
-    scanf(&quot;%d&quot;, &amp;k);
-    work(k);
-    printf(&quot;%d&quot;, ans);
-    return 0;
-&#125;
-</code></pre>
-<p>但是，你会看到<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/115576328">这个页面</a>，看了一些大佬的题解才知道，原来要用 double，随后把 $ans$ 的类型设为 double。</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int k;
-double ans = 0;
-char tmp;
-void work(int x)&#123;
-    scanf(&quot; %c&quot;, &amp;tmp);
-    if (tmp == &#39;2&#39;)&#123;
-        for (int k = 1; k &lt;= 4; k++)&#123;
-            work(x - 1);
-        &#125;
-    &#125; else if (tmp == &#39;0&#39;)&#123;
-        ans += pow(2, x) * pow(2, x);
-    &#125;
-&#125;
-int main()&#123;
-    scanf(&quot;%d&quot;, &amp;k);
-    work(k);
-    printf(&quot;%.0lf&quot;, ans);
-    return 0;
-&#125;
-</code></pre>
+<h2 id="text-Day-INF"><a href="#text-Day-INF" class="headerlink" title="$\text{Day -INF}$"></a>$\text{Day -INF}$</h2><p>基本都在 Duel，$5:4:1$ 轻食模式太好玩了。</p>
+<h2 id="text-Day-0"><a href="#text-Day-0" class="headerlink" title="$\text{Day 0}$"></a>$\text{Day 0}$</h2><p>学校合法划水，冰与火之舞真好玩。晚上照常复习了一遍 KMP、平衡树等。</p>
+<h2 id="text-Day-1"><a href="#text-Day-1" class="headerlink" title="$\text{Day 1}$"></a>$\text{Day 1}$</h2><p>注意：以下时间可能有偏差，但是过程差不多是这样的。</p>
+<p>$8:47$，切了 T1，认为是简单场。</p>
+<p>$8:55$，看完 T2&amp;T3 题面，认为 T3 比较简单。</p>
+<p>$9:10$，思考 T3 无果，认为应该先做 T2。</p>
+<p>$9:30$，疑似想到 T2 正解。</p>
+<p>$9:35$，发现做法错误。</p>
+<p>$9:40$，疑似想到 T2 $52\text{pts}$。</p>
+<p>$9:43$，发现做法错误。</p>
+<p>$9:45$，疑似想到 T2 $24\text{pts}$ 的特殊性质（$m&#x3D;2&amp;m&#x3D;2n-2$）。</p>
+<p>$9:47$，发现不会实现。</p>
+<p>$9:49$，疑似想到 T2 前 $24\text{pts}$ 的部分分。</p>
+<p>$9:50$，发现不想实现。</p>
+<p>这就是我。</p>
+<p>T3 也差不多是这个过程。</p>
+<p>T4 看了一眼不是题，不做了。</p>
+<p>最后 $50\text{min}$ 开始打部分分，脑子【】了，部分分看不见，全是多个最少的部分分凑起来的。</p>
+<p>最后 $10\text{min}$ 的崩溃之余看了一会儿 T3，想到 $76$ 分了，如何呢。</p>
+<p>100+8+16+0&#x3D;124。</p>
+<p>这就是我。</p>
+<p>赛后发现：</p>
+<p>全打部分分，$100+36+16+5$，分数为现在的 $\frac{157}{124}$；</p>
+<p>死磕 T2，我不说 AC，$52\text{pts}$ 绝对有，还耗不了多少时间，T3T4 打暴力，分数为现在的 $\frac{165}{124}$；</p>
+<p>死磕 T3，$76\text{pts}$ 到手，T2 特殊性质、T4 暴力，分数为现在的 $\frac{201}{124}$。</p>
+<p>我偏偏去磕两题的正解。</p>
+<p>没有人能做到了吧。</p>
+<p>这就是我。</p>
+<p>当乐子看吧。</p>
 
     </div>
     
